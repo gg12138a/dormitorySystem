@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java" />
+	<classpathentry kind="con"
+		path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
+		<attributes>
+			<attribute name="module" value="true" />
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con"
+		path="org.eclipse.jst.j2ee.internal.web.container" />
+	<classpathentry kind="con"
+		path="org.eclipse.jst.j2ee.internal.module.container" />
+	<classpathentry kind="lib"
+		path="D:/tomcat9/apache-tomcat-9.0.54/lib/jsp-api.jar" />
+	<classpathentry kind="lib"
+		path="D:/tomcat9/apache-tomcat-9.0.54/lib/servlet-api.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/commons-beanutils-1.9.4.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/commons-logging-1.2.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/druid-1.1.22.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/mysql-connector-java-8.0.24.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/mysql-connector-java-8.0.27.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/spring-beans-5.1.10.RELEASE.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/spring-core-5.1.10.RELEASE.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/spring-jdbc-5.1.10.RELEASE.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/kalix/Desktop/lib/spring-tx-5.1.10.RELEASE.jar" />
+	<classpathentry kind="con"
+		path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5" />
+	<classpathentry kind="output" path="build/classes" />
+</classpath>
