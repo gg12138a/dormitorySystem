@@ -24,6 +24,7 @@
                     "uid": uid
                 }, function (data, status) {
   					if(data=="null"){
+  						document.getElementById("res_selectUserByid").innerHTML="";
   						alert("无匹配此学号的记录！");
   					}else{
   						var response = JSON.parse(data);
