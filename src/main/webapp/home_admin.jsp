@@ -23,9 +23,30 @@
                 $.post("selecetUserByid", {
                     "uid": uid
                 }, function (data, status) {
-                	alert(data);
-                	var response = JSON.parse(data);
+  					if(data=="null"){
+  						alert("无匹配此学号的记录！");
+  					}else{
+  						var response = JSON.parse(data);
+  						document.getElementById("res_selectUserByid").innerHTML='<table class="table table-hover">'
+							+'<thead>'
+							  +'<tr>'
+								+'<th>学号</th>'
+								+'<th>用户名</th>'
+								+'<th>邮箱</th>'
+								+'<th>寝室地点</th>'
+							  +'</tr>'
+							+'</thead>'
+							+'<tbody>'
+							  +'<tr>'
+								+'<td>'+response["id"]+'</td>'
+								+'<td>'+response["username"]+'</td>'
+								+'<td>'+response["email"]+'</td>'
+								+'<td>'+response["location"]+'</td>'
+							  +'</tr>'
+							+'</tbody>'
+						+'</table>';
 
+  					}
                 })
             }
         }
@@ -65,7 +86,6 @@
 					</ul>
 
 				</li>
-
 				<li><a href="#handle" data-toggle="tab">申请处理</a></li>
 			</ul>
 		</div>
@@ -133,15 +153,13 @@
 												</div>
 											</div>
 											<div class="col-md-2">
-												<button href="#"   type="button" class="btn "
+												<button href="#" type="button" class="btn "
 													onclick="getUserByUid()">点击以查询</button>
-
-
-
 											</div>
 										</div>
 									</form>
 
+									<div id="res_selectUserByid"></div>
 
 								</div>
 								<div class="tab-pane fade" id="dor">根据寝室编号进行查询</div>
