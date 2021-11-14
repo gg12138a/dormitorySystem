@@ -23,12 +23,12 @@ public class LoginCheckServlet extends HttpServlet {
         User user = UserDaoImpl.getUserByEmailAndPassword(mail, password);
 
         if(user==null){
-            request.getSession().setAttribute("mail",mail);
-            response.sendRedirect("login.jsp");
+            request.setAttribute("mail",mail);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         else{
             request.getSession().setAttribute("user",user);
-            request.getRequestDispatcher("home_admin.jsp").forward(request, response);
+            response.sendRedirect("home_admin.jsp");
         }
     }
     @Override

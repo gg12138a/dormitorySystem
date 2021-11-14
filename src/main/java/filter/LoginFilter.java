@@ -20,19 +20,20 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter("/*")
 public class LoginFilter implements Filter {
 
-    private static List<String> urls = new ArrayList<>();
+	private static List<String> urls = new ArrayList<>();
 
-    static {
-        urls.add("/login.jsp");
-        urls.add("/loginCheck");
-        urls.add("/selecetUserByid");
-    }
-    /**
-     * Default constructor. 
-     */
-    public LoginFilter() {
-        // TODO Auto-generated constructor stub
-    }
+	static {
+		urls.add("/login.jsp");
+		urls.add("/loginCheck");
+
+	}
+
+	/**
+	 * Default constructor.
+	 */
+	public LoginFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -44,25 +45,25 @@ public class LoginFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		 HttpServletRequest req=(HttpServletRequest)request;
-		 HttpServletResponse res=(HttpServletResponse)response;
-        String urlPattern=req.getServletPath();
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
+		String urlPattern = req.getServletPath();
 
-		 for(String url:urls) {
-			 if(url.equals(urlPattern)){
-				 chain.doFilter(request, response);
-				 return;
-			 }
-				 
-		 }
-		 
-		 if(req.getSession().getAttribute("user")==null) {
-	            res.sendRedirect("login.jsp");
-        }else { 
-            chain.doFilter(request, response);
-        }
-		
+		for (String url : urls) {
+			if (url.equals(urlPattern)) {
+				chain.doFilter(request, response);
+				return;
+			}
+
+		}
+
+		if (req.getSession().getAttribute("user") == null) {
+			res.sendRedirect("login.jsp");
+		} else {
+			chain.doFilter(request, response);
+		}
+
 	}
 
 	/**

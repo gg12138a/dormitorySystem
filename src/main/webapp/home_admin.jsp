@@ -14,44 +14,88 @@
 	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
-        function getUserByUid() {
-            uid = document.getElementById("input_selectUserByid").value;
-            if (uid === "" || uid === null || uid === undefined) {
-                alert("请输入学号！");
-            }
-            else {
-                $.post("selecetUserByid", {
-                    "uid": uid
-                }, function (data, status) {
-  					if(data=="null"){
-  						document.getElementById("res_selectUserByid").innerHTML="";
-  						alert("无匹配此学号的记录！");
-  					}else{
-  						var response = JSON.parse(data);
-  						document.getElementById("res_selectUserByid").innerHTML='<table class="table table-hover">'
-							+'<thead>'
-							  +'<tr>'
-								+'<th>学号</th>'
-								+'<th>用户名</th>'
-								+'<th>邮箱</th>'
-								+'<th>寝室地点</th>'
-							  +'</tr>'
-							+'</thead>'
-							+'<tbody>'
-							  +'<tr>'
-								+'<td>'+response["id"]+'</td>'
-								+'<td>'+response["username"]+'</td>'
-								+'<td>'+response["email"]+'</td>'
-								+'<td>'+response["location"]+'</td>'
-							  +'</tr>'
-							+'</tbody>'
-						+'</table>';
+	function getUserByUid() {
+		var uid = document.getElementById("input_selectUserByid").value;
+		if (uid === "" || uid === null || uid === undefined) {
+			alert("请输入学号！");
+		}
+		else {
+			$.post("selecetUserByid", {
+				"uid": uid
+			}, function (data, status) {
+				if(data=="null"){
+					document.getElementById("res_selectUserByid").innerHTML="";
+					alert("无匹配此学号的记录！");
+				}else{
+					var response = JSON.parse(data);
+					document.getElementById("res_selectUserByid").innerHTML='<table class="table table-hover">'
+						+'<thead>'
+							+'<tr>'
+							+'<th>学号</th>'
+							+'<th>姓名</th>'
+							+'<th>邮箱</th>'
+							+'<th>寝室地点</th>'
+							+'</tr>'
+						+'</thead>'
+						+'<tbody>'
+							+'<tr>'
+							+'<td>'+response["id"]+'</td>'
+							+'<td>'+response["username"]+'</td>'
+							+'<td>'+response["email"]+'</td>'
+							+'<td>'+response["location"]+'</td>'
+							+'</tr>'
+						+'</tbody>'
+					+'</table>';
 
-  					}
-                })
-            }
-        }
-    </script>
+				}
+			})
+		}
+	}
+
+	function getUserByLoc() {
+		var loc = document.getElementById("input_selectUserByLoc").value;
+		if (loc === "" || loc === null || loc === undefined) {
+			alert("请输入寝室编号！");
+		}
+		else{
+			$.post("SelectUsersByLoc", {
+				"loc": loc
+			}, function (data, status) {
+				if(data=="[]"){
+					document.getElementById("res_selectUserByLoc").innerHTML="";
+					alert("无匹配此学号的记录！");
+				}
+				else{
+					var response = JSON.parse(data);
+					var resHtml=
+						'<table class="table table-hover">'
+						+'<thead>'
+						+'<tr>'
+						+'<th>学号</th>'
+						+'<th>姓名</th>'
+						+'<th>邮箱</th>'
+						+'<th>寝室地点</th>'
+						+'</tr>'
+						+'</thead>'
+						+'<tbody>';
+					for (i in response) {
+						resHtml+='<tr>'
+						+'<td>'+response[i]["id"]+'</td>'
+						+'<td>'+response[i]["username"]+'</td>'
+						+'<td>'+response[i]["email"]+'</td>'
+						+'<td>'+response[i]["location"]+'</td>'
+						+'</tr>';
+					}
+					resHtml+='</tbody>'
+					+'</table>';
+					
+					document.getElementById("res_selectUserByLoc").innerHTML=resHtml;
+				}
+			})
+		}
+	}
+
+</script>
 
 
 </head>
@@ -63,7 +107,7 @@
 		<div class="row">
 			<div class="col-md-7"></div>
 			<div class="pull-right col-md-3">
-				管理员用户：${user.username} <a href="zhuxiao">点击以注销</a>
+				管理员用户：${user.username} <a href="logout">点击以注销</a>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -161,9 +205,28 @@
 									</form>
 
 									<div id="res_selectUserByid"></div>
-
 								</div>
-								<div class="tab-pane fade" id="dor">根据寝室编号进行查询</div>
+
+								<div class="tab-pane fade" id="dor">
+									<!-- 根据寝室编号进行查询 -->
+									<form role="form">
+										<div class="row">
+											<div class="col-md-2"></div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input type="text" id="input_selectUserByLoc"
+														class="form-control" name="loc" placeholder="请输入寝室编号">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<button href="#" type="button" class="btn "
+													onclick="getUserByLoc()">点击以查询</button>
+											</div>
+										</div>
+									</form>
+
+									<div id="res_selectUserByLoc"></div>
+								</div>
 							</div>
 						</div>
 						<div class="col-md-2"></div>
