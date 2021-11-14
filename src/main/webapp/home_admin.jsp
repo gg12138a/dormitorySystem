@@ -110,10 +110,10 @@
 		},function(data,status){
 			if(data=="1"){
 				alert("修改成功！");
-				getUserByUid();
 			}else{
 				alert("修改失败！");
 			}
+			getUserByUid();
 		})
 	}
 

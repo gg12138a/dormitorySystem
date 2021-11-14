@@ -99,6 +99,11 @@ public class UserDaoImpl {
 	
 	
 	public static int updateLocWithIdAndNewloc(String id,String newloc) {
+		int count =jdbcTemplate.queryForObject("select count(*) from dormitory where location=?", new Object[] {newloc},Integer.class);
+		
+		if(count==0)
+			return 0;
+		
 		String sql="UPDATE user SET location = ? WHERE id = ?";
 		return jdbcTemplate.update(sql,new Object[] {newloc,id});
 	}

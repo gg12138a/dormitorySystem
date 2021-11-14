@@ -34,12 +34,18 @@ public class UpdateLocByid extends HttpServlet {
 		String id=parsedid.substring(4);
 		String newloc=request.getParameter("newloc");
 		
-		if(UserDaoImpl.updateLocWithIdAndNewloc(id,newloc)==1) {
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().append(JSON.toJSONString(1));
-		}else {
+		if(newloc.length()>4){
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().append(JSON.toJSONString(-1));
+		}
+		else {
+			if(UserDaoImpl.updateLocWithIdAndNewloc(id,newloc)==1) {
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().append(JSON.toJSONString(1));
+			}else {
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().append(JSON.toJSONString(-1));
+			}
 		}
 	}
 
