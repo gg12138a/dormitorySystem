@@ -36,14 +36,20 @@ class DbTest {
 //	}
 	
 	
+//	@Test
+//	void test() {
+//		List<User> users = UserDaoImpl.getUsersByLocation("ac");
+//		
+//		for(User u:users) {
+//			System.out.println(u);
+//		}
+//		
+//		
+//	}
+	
 	@Test
 	void test() {
-		List<User> users = UserDaoImpl.getUsersByLocation("ac");
-		
-		for(User u:users) {
-			System.out.println(u);
-		}
-		
-		
+		int res = UserDaoImpl.updateLocWithIdAndNewloc("13", "r517");
+		System.out.println(res);
 	}
 }

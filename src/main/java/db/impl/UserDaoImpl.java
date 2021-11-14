@@ -98,4 +98,8 @@ public class UserDaoImpl {
 	}
 	
 	
+	public static int updateLocWithIdAndNewloc(String id,String newloc) {
+		String sql="UPDATE user SET location = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[] {newloc,id});
+	}
 }

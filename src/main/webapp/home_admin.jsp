@@ -13,6 +13,7 @@
 <script
 	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
 <script>
 	function getUserByUid() {
 		var uid = document.getElementById("input_selectUserByid").value;
@@ -34,7 +35,8 @@
 							+'<th>学号</th>'
 							+'<th>姓名</th>'
 							+'<th>邮箱</th>'
-							+'<th>寝室地点</th>'
+							+'<th>寝室地点（点击可修改）</th>'
+							+'<th></th>'
 							+'</tr>'
 						+'</thead>'
 						+'<tbody>'
@@ -43,6 +45,9 @@
 							+'<td>'+response["username"]+'</td>'
 							+'<td>'+response["email"]+'</td>'
 							+'<td>'+response["location"]+'</td>'
+							+'<td>'
+							+'<button type="button" id="uid_'+response["id"]+'" onclick="promptUpdateLoc(this)">点击修改</button>'
+							+'</td>'
 							+'</tr>'
 						+'</tbody>'
 					+'</table>';
@@ -93,6 +98,23 @@
 				}
 			})
 		}
+	}
+	
+
+	function promptUpdateLoc(elem){
+		var newloc=prompt("请输入新的寝室编号：","");
+
+		$.post("updateLocByid", {
+			"parsedid":elem.id,
+			"newloc":newloc
+		},function(data,status){
+			if(data=="1"){
+				alert("修改成功！");
+				getUserByUid();
+			}else{
+				alert("修改失败！");
+			}
+		})
 	}
 
 </script>
