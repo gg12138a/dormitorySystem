@@ -7,8 +7,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import db.impl.DormitoryDaoImpl;
+import db.impl.DormitoryStatusDaoImpl;
 import db.impl.UserDaoImpl;
 import domain.Dormitory;
+import domain.DormitoryStatus;
 import domain.User;
 
 class DbTest {
@@ -21,12 +23,12 @@ class DbTest {
 //	}
 	
 	
-	@Test
-	void test1() {
-		User user = UserDaoImpl.getUserByUid("13");
-		System.out.println(user);
-	}
-	
+//	@Test
+//	void test1() {
+//		User user = UserDaoImpl.getUserByUid("13");
+//		System.out.println(user);
+//	}
+//	
 
 	
 //	@Test
@@ -54,5 +56,11 @@ class DbTest {
 //		System.out.println(res);
 //	}
 	
+
+	@Test
+	void test() {
+		List<DormitoryStatus> statusList = DormitoryStatusDaoImpl.getUsersByLocation();
+		System.out.println(statusList);
+	}
 	
 }
