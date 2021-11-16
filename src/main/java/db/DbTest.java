@@ -21,12 +21,12 @@ class DbTest {
 //	}
 	
 	
-//	@Test
-//	void test1() {
-//		User user = UserDaoImpl.getUserByUid(13);
-//		System.out.println(user);
-//	}
-//	
+	@Test
+	void test1() {
+		User user = UserDaoImpl.getUserByUid("13");
+		System.out.println(user);
+	}
+	
 
 	
 //	@Test
@@ -47,9 +47,12 @@ class DbTest {
 //		
 //	}
 	
-	@Test
-	void test() {
-		int res = UserDaoImpl.updateLocWithIdAndNewloc("13", "r516");
-		System.out.println(res);
-	}
+//	@Test
+//	void test() {
+////		int res = UserDaoImpl.updateLocWithIdAndNewloc("13", "r516");
+//		int res = UserDaoImpl.updateLocToNULLWithID("13");
+//		System.out.println(res);
+//	}
+	
+	
 }

@@ -80,6 +80,7 @@
 						+'<th>姓名</th>'
 						+'<th>邮箱</th>'
 						+'<th>寝室地点</th>'
+						+'<th>点击按钮，将该用户移出该寝室</th>'
 						+'</tr>'
 						+'</thead>'
 						+'<tbody>';
@@ -89,6 +90,7 @@
 						+'<td>'+response[i]["username"]+'</td>'
 						+'<td>'+response[i]["email"]+'</td>'
 						+'<td>'+response[i]["location"]+'</td>'
+						+'<td> <button type="button" id="uid_t_'+response[i]["id"]+'" onclick="deleteThisPerson(this)">点击删除</button> </td>'
 						+'</tr>';
 					}
 					resHtml+='</tbody>'
@@ -116,6 +118,20 @@
 				alert("修改失败！");
 			}
 			getUserByUid();
+		})
+	}
+
+	function deleteThisPerson(elem){
+		$.post("deletePersonById", {
+			"parsedid":elem.id,
+		},function(data,status){
+			if(data=="1"){
+				alert("修改成功！");
+			}else{
+				alert("修改失败！");
+			}
+
+			getUserByLoc();
 		})
 	}
 

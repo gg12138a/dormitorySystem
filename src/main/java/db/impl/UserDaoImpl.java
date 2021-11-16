@@ -113,4 +113,9 @@ public class UserDaoImpl {
 		String sql="UPDATE user SET location = ? WHERE id = ?";
 		return jdbcTemplate.update(sql,new Object[] {newloc,id});
 	}
+	
+	public static int updateLocToNULLWithID(String id) {
+		String sql="UPDATE USER SET location=NULL WHERE id=?";
+		return jdbcTemplate.update(sql,new Object[] {id});
+	}
 }

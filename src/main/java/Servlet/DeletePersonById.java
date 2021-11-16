@@ -6,22 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.alibaba.fastjson.JSON;
 
 import db.impl.UserDaoImpl;
-import domain.User;
 
 /**
- * Servlet implementation class SelecetUser
+ * Servlet implementation class DeletePersonById
  */
-@WebServlet("/selecetUserByid")
-public class SelecetUserById extends HttpServlet {
+@WebServlet("/deletePersonById")
+public class DeletePersonById extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelecetUserById() {
+    public DeletePersonById() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +30,17 @@ public class SelecetUserById extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uid=request.getParameter("uid");
-		System.out.println(uid);
-		
-		User userGot = UserDaoImpl.getUserByUid(uid);
-		
-		if(userGot.getLocation()==null)
-			userGot.setLocation("未入住任何寝室");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().append(JSON.toJSONString(userGot));
+		String parsedid=request.getParameter("parsedid");
+		String id=parsedid.substring(6);
+
+		if(UserDaoImpl.updateLocToNULLWithID(id)==1) {
+			//成功
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().append(JSON.toJSONString(1));
+		}else {
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().append(JSON.toJSONString(0));
+		}
 	}
 
 	/**
