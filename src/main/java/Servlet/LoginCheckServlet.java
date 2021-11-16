@@ -27,6 +27,8 @@ public class LoginCheckServlet extends HttpServlet {
         	 AdminUser adminUser = AdminUserDaoImpl.getAdminUserByEmailAndPassword(mail, password);
         	 if(adminUser==null){
         		request.setAttribute("mail",mail);
+        		
+        		
      			request.getRequestDispatcher("login.jsp").forward(request, response);
         	 }else {
         		 request.getSession().setAttribute("adminUser",adminUser);

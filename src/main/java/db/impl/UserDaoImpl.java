@@ -98,6 +98,22 @@ public class UserDaoImpl {
 		},location);
 	}
 	
+	public static List<User> getUsersNotIn(){
+		String sql ="select * from user where isnull(location)";
+		
+		return jdbcTemplate.query(sql, new RowMapper<User>() {
+			public User mapRow(ResultSet rs,int arg1) throws SQLException {
+				User u = new User();
+				u.setId(rs.getInt("id"));
+				u.setEmail(rs.getString("email"));
+				u.setPassword(rs.getString("password"));
+				u.setUsername(rs.getString("username"));
+				u.setLocation(rs.getString("location"));
+				
+				return u;
+			}
+		});
+	}
 	
 	public static int updateLocWithIdAndNewloc(String id,String newloc) {
 //		int count =jdbcTemplate.queryForObject("select count(*) from dormitory where location=?", new Object[] {newloc},Integer.class);
@@ -117,5 +133,10 @@ public class UserDaoImpl {
 	public static int updateLocToNULLWithID(String id) {
 		String sql="UPDATE USER SET location=NULL WHERE id=?";
 		return jdbcTemplate.update(sql,new Object[] {id});
+	}
+	
+	public static int updateUserLocById(String id,String loc) {
+		String sql="UPDATE USER SET location=? WHERE id=?";
+		return jdbcTemplate.update(sql,new Object[] {loc,id});
 	}
 }

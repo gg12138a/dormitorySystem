@@ -95,6 +95,17 @@
 							+'<td> <button type="button" id="uid_t_'+response[i]["id"]+'" onclick="deleteThisPerson(this)">点击删除</button> </td>'
 							+'</tr>';
 						}
+						
+						if(response.length<4){
+							resHtml+='<tr>'
+								+'<td></td>'
+								+'<td></td>'
+								+'<td></td>'
+								+'<td></td>'
+								+'<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="addMember()">添加成员</button></td>'
+								+'</tr>'
+						}
+
 						resHtml+='</tbody>'
 						+'</table>';
 					}
@@ -137,6 +148,55 @@
 			getUserByLoc();
 		})
 	}
+	
+	function changeModalbody(){
+		$.post("getAllUsersNotIn",{
+			
+		},function(data,status){
+			var response = JSON.parse(data);
+			var resHtml="";
+			
+			for(i in response){
+				resHtml+=
+					'<div class="radio">'
+						+'<label>'
+							+'<input type="radio" name="optionsRadios"  value="'+response[i]["id"]+'" checked>'+response[i]["username"]
+						+'</label>'
+					+'</div>';
+			}
+			
+			document.getElementById("modal-body").innerHTML=resHtml
+		})
+	}
+	
+	function addMember(){
+		$('#exampleModalLong').on('show.bs.modal', function () {
+			changeModalbody();
+		})
+		
+		$('#exampleModalLong').on('hide.bs.modal', function () {
+			var obj = document.getElementsByTagName("optionsRadios");
+			var checkedId=$("input[name='optionsRadios']:checked").val();
+
+			$.post("addUserInLoc",{
+				"id":checkedId,
+				"loc":document.getElementById("input_selectUserByLoc").value
+			},function(data,status){
+				if(data=="1"){
+					alert("插入成功");
+				}
+				else{
+					alert("插入失败");
+				}
+				
+				getUserByLoc();
+			})
+			
+			
+		})
+		
+	}
+	
 
 </script>
 
@@ -279,9 +339,28 @@
 
 			</div>
 		</div>
-
-
 	</div>
+	
+	<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+	    aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div id="modal-body" class="modal-body">
+	                ...
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
 </body>
 
 </html>

@@ -57,10 +57,21 @@ class DbTest {
 //	}
 	
 
+//	@Test
+//	void test() {
+//		List<DormitoryStatus> statusList = DormitoryStatusDaoImpl.getUsersByLocation();
+//		System.out.println(statusList);
+//	}
+//	
+//	@Test
+//	void test() {
+//		List<User> users = UserDaoImpl.getUsersNotIn();
+//		System.out.println(users);
+//	}
+	
 	@Test
 	void test() {
-		List<DormitoryStatus> statusList = DormitoryStatusDaoImpl.getUsersByLocation();
-		System.out.println(statusList);
+		int res = UserDaoImpl.updateUserLocById("12345","r517");
+		System.out.println(res);
 	}
-	
 }
