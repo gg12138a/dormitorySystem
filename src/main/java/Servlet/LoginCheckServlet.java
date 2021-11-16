@@ -36,14 +36,16 @@ public class LoginCheckServlet extends HttpServlet {
         	 }
         }else {
             User user = UserDaoImpl.getUserByEmailAndPassword(mail, password);
-
+            if(user.getLocation()==null)
+            	user.setLocation("暂未入住任何寝室");
+            
             if(user==null){
                 request.setAttribute("mail",mail);
     			request.getRequestDispatcher("login.jsp").forward(request, response);
             }
             else{
                 request.getSession().setAttribute("user",user);
-                response.sendRedirect("home_admin.jsp");
+                response.sendRedirect("home_user.jsp");
             }
         }
     }

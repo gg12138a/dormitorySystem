@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import db.impl.ApplyDaoImpl;
 import db.impl.DormitoryDaoImpl;
 import db.impl.DormitoryStatusDaoImpl;
 import db.impl.UserDaoImpl;
+import domain.Apply;
 import domain.Dormitory;
 import domain.DormitoryStatus;
 import domain.User;
@@ -69,9 +71,15 @@ class DbTest {
 //		System.out.println(users);
 //	}
 	
+//	@Test
+//	void test() {
+//		int res = UserDaoImpl.updateUserLocById("12345","r517");
+//		System.out.println(res);
+//	}
+	
 	@Test
 	void test() {
-		int res = UserDaoImpl.updateUserLocById("12345","r517");
-		System.out.println(res);
+		List<Apply> appliesById = ApplyDaoImpl.getAppliesById("1312");
+		System.out.println(appliesById);
 	}
 }

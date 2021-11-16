@@ -1,27 +1,30 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.alibaba.fastjson.JSON;
 
-import db.impl.UserDaoImpl;
-import domain.User;
+import db.impl.DormitoryStatusDaoImpl;
+import domain.DormitoryStatus;
 
 /**
- * Servlet implementation class SelecetUser
+ * Servlet implementation class ListFreeDormitories
  */
-@WebServlet("/selecetUserByid")
-public class SelecetUserById extends HttpServlet {
+@WebServlet("/listFreeDormitories")
+public class ListFreeDormitories extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelecetUserById() {
+    public ListFreeDormitories() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +33,12 @@ public class SelecetUserById extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uid=request.getParameter("uid");
-		System.out.println(uid);
+		// TODO Auto-generated method stub
+		List<DormitoryStatus> allDormitoriesStatus = DormitoryStatusDaoImpl.getAllDormitoriesStatus();
 		
-		User userGot = UserDaoImpl.getUserByUid(uid);
-		
-		if(userGot.getLocation()==null)
-			userGot.setLocation("暂未入住任何寝室");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().append(JSON.toJSONString(userGot));
+		response.getWriter().append(JSON.toJSONString(allDormitoriesStatus));
+	
 	}
 
 	/**

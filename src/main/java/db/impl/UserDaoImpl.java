@@ -139,4 +139,8 @@ public class UserDaoImpl {
 		String sql="UPDATE USER SET location=? WHERE id=?";
 		return jdbcTemplate.update(sql,new Object[] {loc,id});
 	}
+	
+	public static String getLocById(String id) {
+		return jdbcTemplate.queryForObject("select location from user where id=?",new Object[] {id},String.class);
+	}
 }

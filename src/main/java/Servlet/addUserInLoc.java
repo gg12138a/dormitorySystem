@@ -15,13 +15,13 @@ import db.impl.UserDaoImpl;
  * Servlet implementation class addUserInLoc
  */
 @WebServlet("/addUserInLoc")
-public class addUserInLoc extends HttpServlet {
+public class AddUserInLoc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public addUserInLoc() {
+    public AddUserInLoc() {
         super();
         // TODO Auto-generated constructor stub
     }

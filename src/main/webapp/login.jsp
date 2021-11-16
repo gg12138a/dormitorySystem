@@ -45,7 +45,7 @@
 
 									<p class="small mb-5 pb-lg-2">
 										<div class="radio">
-  											<label><input type="radio" name="isAdminUser">管理员登录</label>
+  											<label><input type="checkbox" name="isAdminUser">管理员登录</label>
 										</div>
 									</p>
 

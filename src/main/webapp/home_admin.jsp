@@ -140,9 +140,9 @@
 			"parsedid":elem.id,
 		},function(data,status){
 			if(data=="1"){
-				alert("修改成功！");
+				alert("删除成功！");
 			}else{
-				alert("修改失败！");
+				alert("删除失败！");
 			}
 
 			getUserByLoc();
@@ -221,7 +221,7 @@
 				<li class="dropdown nav-header collapsed" data-toggle="collapse">
 					<a href="#" id="myTabDrop1" class="dropdown-toggle"
 					data-toggle="dropdown">住宿信息管理<b class="caret"></b>
-				</a>
+					</a>
 					<ul class="dropdown-menu " role="menu" aria-labelledby="myTabDrop1">
 						<li><a href="#insert" tabindex="-1" data-toggle="tab"> 增</a>
 						</li>
@@ -232,7 +232,6 @@
 						<li><a href="#select" tabindex="-1" data-toggle="tab"> 查</a>
 						</li>
 					</ul>
-
 				</li>
 				<li><a href="#handle" data-toggle="tab">申请处理</a></li>
 			</ul>
@@ -346,13 +345,13 @@
 	    <div class="modal-dialog" role="document">
 	        <div class="modal-content">
 	            <div class="modal-header">
-	                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	                <h5 class="modal-title" id="exampleModalLongTitle">请选择将要入住的学生</h5>
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                    <span aria-hidden="true">&times;</span>
 	                </button>
 	            </div>
 	            <div id="modal-body" class="modal-body">
-	                ...
+
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

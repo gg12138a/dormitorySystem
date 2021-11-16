@@ -16,7 +16,7 @@ public class DormitoryStatusDaoImpl {
 	
 	static JdbcTemplate jdbcTemplate = new JdbcTemplate(DbUtils.getDataSource());
 
-	public static List<DormitoryStatus> getUsersByLocation(){
+	public static List<DormitoryStatus> getAllDormitoriesStatus(){
 		String sql="select dormitory.`location`,sum(if(isnull(user.`id`),0,1)) as peoplecount\r\n"
 				+ "	from dormitory \r\n"
 				+ "	left join user \r\n"
