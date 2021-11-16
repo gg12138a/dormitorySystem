@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 
+import db.impl.DormitoryDaoImpl;
 import db.impl.UserDaoImpl;
 import domain.User;
 
@@ -36,10 +37,15 @@ public class SelectUsersByLoc extends HttpServlet {
 		String loc=request.getParameter("loc");
 		System.out.println(loc);
 		
-		List<User> users = UserDaoImpl.getUsersByLocation(loc);
-		
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().append(JSON.toJSONString(users));
+		if(DormitoryDaoImpl.judgeDormitoryExist(loc)==0) {
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().append(JSON.toJSONString(-1));
+		}else {
+			List<User> users = UserDaoImpl.getUsersByLocation(loc);
+			
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().append(JSON.toJSONString(users));
+		}
 	}
 
 	/**

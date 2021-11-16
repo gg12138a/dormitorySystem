@@ -66,13 +66,15 @@
 			$.post("SelectUsersByLoc", {
 				"loc": loc
 			}, function (data, status) {
-				if(data=="[]"){
+				if(data=="-1"){
+					alert("不存在该寝室！");
 					document.getElementById("res_selectUserByLoc").innerHTML="";
-					alert("无匹配此寝室编号的记录！");
-				}
-				else{
+				}else{
 					var response = JSON.parse(data);
 					var resHtml=
+						'<p class="small mb-5 pb-lg-2">目前入住：'+response.length+'/4</p>';
+					if(response.length!=0){
+						resHtml+=
 						'<table class="table table-hover">'
 						+'<thead>'
 						+'<tr>'
@@ -84,18 +86,19 @@
 						+'</tr>'
 						+'</thead>'
 						+'<tbody>';
-					for (i in response) {
-						resHtml+='<tr>'
-						+'<td>'+response[i]["id"]+'</td>'
-						+'<td>'+response[i]["username"]+'</td>'
-						+'<td>'+response[i]["email"]+'</td>'
-						+'<td>'+response[i]["location"]+'</td>'
-						+'<td> <button type="button" id="uid_t_'+response[i]["id"]+'" onclick="deleteThisPerson(this)">点击删除</button> </td>'
-						+'</tr>';
+						for (i in response) {
+							resHtml+='<tr>'
+							+'<td>'+response[i]["id"]+'</td>'
+							+'<td>'+response[i]["username"]+'</td>'
+							+'<td>'+response[i]["email"]+'</td>'
+							+'<td>'+response[i]["location"]+'</td>'
+							+'<td> <button type="button" id="uid_t_'+response[i]["id"]+'" onclick="deleteThisPerson(this)">点击删除</button> </td>'
+							+'</tr>';
+						}
+						resHtml+='</tbody>'
+						+'</table>';
 					}
-					resHtml+='</tbody>'
-					+'</table>';
-					
+
 					document.getElementById("res_selectUserByLoc").innerHTML=resHtml;
 				}
 			})
