@@ -34,9 +34,13 @@ public class DormitoryDaoImpl {
 	if(dors.size()==0)
 		return null;
 	else
-		return dors.get(0);
-		
+		return dors.get(0);		
 	}
 
+	public static int judgeDormitoryExist(String location) {
+		return jdbcTemplate.queryForObject("select count(*) from dormitory where location=?", new Object[] {location},Integer.class);
+	}
+	
+	
 	
 }

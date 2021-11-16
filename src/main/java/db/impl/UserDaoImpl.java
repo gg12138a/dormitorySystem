@@ -32,6 +32,7 @@ public class UserDaoImpl {
 		
 	}
 	
+
 	
 	public static User getUserByEmailAndPassword(String email, String password) {
 		String sql ="select * from user where email=? and password=?";
@@ -99,10 +100,15 @@ public class UserDaoImpl {
 	
 	
 	public static int updateLocWithIdAndNewloc(String id,String newloc) {
-		int count =jdbcTemplate.queryForObject("select count(*) from dormitory where location=?", new Object[] {newloc},Integer.class);
-		
+//		int count =jdbcTemplate.queryForObject("select count(*) from dormitory where location=?", new Object[] {newloc},Integer.class);
+		int count=DormitoryDaoImpl.judgeDormitoryExist(newloc);
 		if(count==0)
 			return 0;
+		
+		List<User> users = getUsersByLocation(newloc);
+		if(users.size()>=4)
+			return -1;
+		
 		
 		String sql="UPDATE user SET location = ? WHERE id = ?";
 		return jdbcTemplate.update(sql,new Object[] {newloc,id});

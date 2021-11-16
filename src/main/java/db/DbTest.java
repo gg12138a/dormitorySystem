@@ -49,7 +49,7 @@ class DbTest {
 	
 	@Test
 	void test() {
-		int res = UserDaoImpl.updateLocWithIdAndNewloc("13", "r517");
+		int res = UserDaoImpl.updateLocWithIdAndNewloc("13", "r516");
 		System.out.println(res);
 	}
 }

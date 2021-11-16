@@ -35,8 +35,8 @@
 							+'<th>学号</th>'
 							+'<th>姓名</th>'
 							+'<th>邮箱</th>'
-							+'<th>寝室地点（点击可修改）</th>'
-							+'<th></th>'
+							+'<th>寝室地点</th>'
+							+'<th>点击按钮修改寝室</th>'
 							+'</tr>'
 						+'</thead>'
 						+'<tbody>'
@@ -68,7 +68,7 @@
 			}, function (data, status) {
 				if(data=="[]"){
 					document.getElementById("res_selectUserByLoc").innerHTML="";
-					alert("无匹配此学号的记录！");
+					alert("无匹配此寝室编号的记录！");
 				}
 				else{
 					var response = JSON.parse(data);
@@ -110,6 +110,8 @@
 		},function(data,status){
 			if(data=="1"){
 				alert("修改成功！");
+			}else if(data=="-1"){
+				alert(newloc+"寝室人数已满，修改失败！");
 			}else{
 				alert("修改失败！");
 			}
@@ -129,7 +131,7 @@
 		<div class="row">
 			<div class="col-md-7"></div>
 			<div class="pull-right col-md-3">
-				管理员用户：${user.username} <a href="logout">点击以注销</a>
+				管理员用户：${adminUser.username} <a href="logout">点击以注销</a>
 			</div>
 			<div class="col-md-2"></div>
 		</div>

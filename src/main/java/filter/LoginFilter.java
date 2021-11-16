@@ -58,10 +58,16 @@ public class LoginFilter implements Filter {
 
 		}
 
-		if (req.getSession().getAttribute("user") == null) {
-			res.sendRedirect("login.jsp");
-		} else {
+//		if (req.getSession().getAttribute("user") == null) {
+//			res.sendRedirect("login.jsp");
+//		} else {
+//			chain.doFilter(request, response);
+//		}
+		
+		if(req.getSession().getAttribute("user") != null || req.getSession().getAttribute("adminUser")!=null) {
 			chain.doFilter(request, response);
+		}else {
+			res.sendRedirect("login.jsp");
 		}
 
 	}

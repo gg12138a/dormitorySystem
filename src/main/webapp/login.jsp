@@ -44,7 +44,9 @@
 									</div>
 
 									<p class="small mb-5 pb-lg-2">
-										<a class="text-white-50" href="#!">忘记密码？</a>
+										<div class="radio">
+  											<label><input type="radio" name="isAdminUser">管理员登录</label>
+										</div>
 									</p>
 
 									<button class="btn btn-outline-light btn-lg px-5" type="submit">点击登录</button>
@@ -61,10 +63,7 @@
 							</div>
 
 							<div>
-								<p class="mb-0">
-									还没拥有账号？<a href="#!" class="text-white-50 fw-bold">注册</a>
-								</p>
-							</div>
+						
 
 						</div>
 					</div>

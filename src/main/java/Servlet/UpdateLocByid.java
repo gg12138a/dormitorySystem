@@ -39,12 +39,17 @@ public class UpdateLocByid extends HttpServlet {
 			response.getWriter().append(JSON.toJSONString(-1));
 		}
 		else {
-			if(UserDaoImpl.updateLocWithIdAndNewloc(id,newloc)==1) {
+			int res=UserDaoImpl.updateLocWithIdAndNewloc(id,newloc);
+			if(res==1) {
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().append(JSON.toJSONString(1));
-			}else {
+			}else if(res==-1) {
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().append(JSON.toJSONString(-1));
+			}
+			else {
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().append(JSON.toJSONString(0));
 			}
 		}
 	}
