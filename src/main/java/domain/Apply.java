@@ -9,6 +9,8 @@ public class Apply {
 	private boolean passed;
 	private String generateTime;
 	private String reviewedTime;
+	private String username;
+	
 	
 	public Apply() {}
 	
@@ -24,6 +26,22 @@ public class Apply {
 		this.passed = passed;
 		this.generateTime = generateTime;
 		this.reviewedTime = reviewedTime;
+	}
+
+	
+
+	public Apply(int aid, String uid, String fromLoc, String toLoc, boolean reviewed, boolean passed,
+			String generateTime, String reviewedTime, String username) {
+		super();
+		this.aid = aid;
+		this.uid = uid;
+		this.fromLoc = fromLoc;
+		this.toLoc = toLoc;
+		this.reviewed = reviewed;
+		this.passed = passed;
+		this.generateTime = generateTime;
+		this.reviewedTime = reviewedTime;
+		this.username = username;
 	}
 
 
@@ -75,11 +93,26 @@ public class Apply {
 	public void setReviewedTime(String reviewedTime) {
 		this.reviewedTime = reviewedTime;
 	}
-	
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Apply [aid=" + aid + ", uid=" + uid + ", fromLoc=" + fromLoc + ", toLoc=" + toLoc + ", reviewed="
 				+ reviewed + ", passed=" + passed + ", generateTime=" + generateTime + ", reviewedTime=" + reviewedTime
-				+ "]";
+				+ ", username=" + username + "]";
 	}
+	
+
+	
+	
 }

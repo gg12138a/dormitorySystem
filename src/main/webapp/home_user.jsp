@@ -30,15 +30,17 @@
 						+'<tbody>';
 					for (i in response) {
 						if(response[i]["peopleCounts"]!=4){
-							resHtml+='<tr>'
-								+'<td>'+response[i]["location"]+'</td>'
-								+'<td>'+response[i]["peopleCounts"]+'</td>'
-								+'<td> <input type="radio" name="optionsRadios"  value="'+response[i]["location"]+'" checked> </td>'
-								+'</tr>';
+							if(response[i]["location"]!="${user.location}"){
+								resHtml+='<tr>'
+									+'<td>'+response[i]["location"]+'</td>'
+									+'<td>'+response[i]["peopleCounts"]+'</td>'
+									+'<td> <input type="radio" name="optionsRadios"  value="'+response[i]["location"]+'" checked> </td>'
+									+'</tr>';	
+							}
 						}
 					}
 					resHtml+='</tbody>';
-					document.getElementById("modal-body").innerHTML=resHtml
+					document.getElementById("modal-body").innerHTML=resHtml;
 				})
 				
 			})
@@ -67,6 +69,41 @@
 				}
 			})
 		});
+		
+		function getUserInfo(){
+			$.post("updateUserInfo", {
+				"id":"${user.id}"
+			},function(data,status){
+				var response = JSON.parse(data);
+
+				resHtml='<table class="table table-condensed">'
+					+'<caption>您的个人信息</caption>'
+					+'<thead>'
+						+'<tr>'
+							+'<th></th>'
+							+'<th></th>'
+						+'</tr>'
+					+'</thead>'
+					+'<tbody>'
+						+'<tr>'
+							+'<td>用户名</td>'
+							+'<td>'+response["username"]+'</td>'
+						+'</tr>'
+						+'<tr>'
+							+'<td>邮箱</td>'
+							+'<td>'+response["email"]+'</td>'
+						+'</tr>'
+						+'<tr>'
+							+'<td>寝室地点</td>'
+							+'<td>'+response["location"]+'</td>'
+						+'</tr>'
+					+'</tbody>'
+				+'</table>'
+				+'<button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"  >申请调动</button>'
+				
+				document.getElementById("userInfo").innerHTML=resHtml;
+			})
+		}
 		
 		
 		function showAppliesList(){
@@ -139,7 +176,7 @@
 	
 		<div style="background: #ddd col-md-10 col-lg-10">
 			<ul id="main-nav " class="nav nav-tabs nav-stacked ">
-				<li><a href="#info" data-toggle="tab">个人信息</a></li>
+				<li><a href="#info" data-toggle="tab" onclick="getUserInfo()">个人信息</a></li>
 				<li><a href="#handle" data-toggle="tab"  onclick="showAppliesList()">寝室调动申请记录</a></li>
 			</ul>
 		</div>
@@ -149,32 +186,8 @@
 				<!-- info标签页 -->
 				<div class="tab-pane fade in active" id="info">
 					<div class="col-md-2"></div>
-					<div class="col-md-8 text-center">
-						<table class="table table-condensed">
-							<caption>您的个人信息</caption>
-							<thead>
-								<tr>
-									<th></th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>用户名</td>
-									<td>${user.username}</td>
-								</tr>
-								<tr>
-									<td>邮箱</td>
-									<td>${user.email}</td>
-								</tr>
-								<tr>
-									<td>寝室地点</td>
-									<td>${user.location}</td>
-								</tr>
-							</tbody>
-						</table>
+					<div id="userInfo" class="col-md-8 text-center">
 						
-						<button href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"  >申请调动</button>
 					</div>
 					<div class="col-md-2"></div>
 				</div>

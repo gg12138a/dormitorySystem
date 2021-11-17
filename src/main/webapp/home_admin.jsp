@@ -102,7 +102,7 @@
 								+'<td></td>'
 								+'<td></td>'
 								+'<td></td>'
-								+'<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="addMember()">添加成员</button></td>'
+								+'<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" >添加成员</button></td>'
 								+'</tr>'
 						}
 
@@ -149,51 +149,140 @@
 		})
 	}
 	
-	function changeModalbody(){
-		$.post("getAllUsersNotIn",{
-			
-		},function(data,status){
-			var response = JSON.parse(data);
-			var resHtml="";
-			
-			for(i in response){
-				resHtml+=
-					'<div class="radio">'
-						+'<label>'
-							+'<input type="radio" name="optionsRadios"  value="'+response[i]["id"]+'" checked>'+response[i]["username"]
-						+'</label>'
-					+'</div>';
-			}
-			
-			document.getElementById("modal-body").innerHTML=resHtml
-		})
-	}
+
 	
-	function addMember(){
+	$(function () {
 		$('#exampleModalLong').on('show.bs.modal', function () {
-			changeModalbody();
+			$.post("getAllUsersNotIn",{
+				
+			},function(data,status){
+				if(data=="[]")
+					document.getElementById("modal-body").innerHTML="所有学生都已入住各自寝室。无空余学生！";
+				else{
+					var response = JSON.parse(data);
+					var resHtml="";
+					
+					for(i in response){
+						resHtml+=
+							'<div class="radio">'
+								+'<label>'
+									+'<input type="radio" name="optionsRadios"  value="'+response[i]["id"]+'" checked>'+response[i]["username"]
+								+'</label>'
+							+'</div>';
+					}
+					
+					document.getElementById("modal-body").innerHTML=resHtml;
+				}
+			})
 		})
-		
+	});
+	
+	$(function () {
 		$('#exampleModalLong').on('hide.bs.modal', function () {
 			var obj = document.getElementsByTagName("optionsRadios");
 			var checkedId=$("input[name='optionsRadios']:checked").val();
+			if(typeof checkedId != 'undefined'){
+				$.post("addUserInLoc",{
+					"id":checkedId,
+					"loc":document.getElementById("input_selectUserByLoc").value
+				},function(data,status){
+					if(data=="1"){
+						alert("插入成功");
+					}
+					else{
+						alert("插入失败");
+					}
+					
+					getUserByLoc();
+				})
+			}
+		})
+	});
+	
+	
+	function showUnreviewedApplies(){
+		$.post("getUnreviewedApplies",{
 
-			$.post("addUserInLoc",{
-				"id":checkedId,
-				"loc":document.getElementById("input_selectUserByLoc").value
+		},function(data,status){
+			if(data=="[]"){
+				document.getElementById("handle").innerHTML="<p>无未处理的请求</p>";
+			}
+			else{
+				var response = JSON.parse(data);
+				var resHtml=
+					'<table class="table table-hover">'
+					+'<thead>'
+					+'<tr>'
+					+'<th>申请编号</th>'
+					+'<th>用户名</th>'
+					+'<th>搬出地</th>'
+					+'<th>搬入地</th>'
+					+'<th>记录生成时间</th>'
+					+'<th></th>'
+					+'<th></th>'
+					+'</tr>'
+					+'</thead>'
+					+'<tbody>';
+				for(i in response){
+					resHtml+='<tr>'
+							+'<td>'+response[i]["aid"]+'</td>'
+							+'<td>'+response[i]["username"]+'</td>'
+							+'<td>'+response[i]["fromLoc"]+'</td>'
+							+'<td>'+response[i]["toLoc"]+'</td>';
+					
+					if(response[i]["generateTime"] === undefined)
+						resHtml+="<td>无记录</td>";
+					else
+						resHtml+='<td>'+response[i]["generateTime"]+'</td>';
+						
+					resHtml+='<td><button href="#" onclick="agreeApply(this)" type="button" class="btn" id="aid_y_'+response[i]["aid"] +'">同意</button></td>';
+					resHtml+='<td><button href="#" onclick="disagreeApply(this)" type="button" class="btn" id="aid_n_'+response[i]["aid"] +'">不同意</button></td>';
+					resHtml+='</tr>';
+				}
+				resHtml+='</tbody>'
+						+'</table>';
+					
+				document.getElementById("handle").innerHTML=resHtml;
+			}
+		})
+	}
+	
+	function agreeApply(elem){
+	    var r=confirm("确认同意该请求");
+	    if(r==true){
+	    	$.post("agreeApplyById",{
+	    		"parsedid":elem.id
 			},function(data,status){
 				if(data=="1"){
-					alert("插入成功");
+					alert("同意该请求成功!")
 				}
 				else{
-					alert("插入失败");
+					alert("同意该申请失败，请重新尝试!");
 				}
 				
-				getUserByLoc();
+				
+				showUnreviewedApplies();
 			})
 			
-			
-		})
+	    }
+	}
+	
+	function disagreeApply(elem){
+		var r=confirm("确认不同意该请求");
+		if(r==true){
+			$.post("disagreeApplyById",{
+	    		"parsedid":elem.id
+			},function(data,status){
+				if(data=="1"){
+					alert("同意该请求成功!")
+				}
+				else{
+					alert("同意该申请失败，请重新尝试!");
+				}
+				
+				showUnreviewedApplies();
+			})
+		}
 		
 	}
 	
@@ -233,7 +322,7 @@
 						</li>
 					</ul>
 				</li>
-				<li><a href="#handle" data-toggle="tab">申请处理</a></li>
+				<li><a href="#handle" data-toggle="tab" onclick="showUnreviewedApplies()">申请处理</a></li>
 			</ul>
 		</div>
 

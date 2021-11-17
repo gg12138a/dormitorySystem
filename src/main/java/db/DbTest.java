@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import db.impl.ApplyDaoImpl;
 import db.impl.DormitoryDaoImpl;
-import db.impl.DormitoryStatusDaoImpl;
 import db.impl.UserDaoImpl;
 import domain.Apply;
 import domain.Dormitory;

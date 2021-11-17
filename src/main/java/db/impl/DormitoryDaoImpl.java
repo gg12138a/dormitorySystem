@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import db.DbUtils;
 
 import domain.Dormitory;
+import domain.DormitoryStatus;
 import domain.User;
 
 public class DormitoryDaoImpl {
@@ -41,6 +42,28 @@ public class DormitoryDaoImpl {
 		return jdbcTemplate.queryForObject("select count(*) from dormitory where location=?", new Object[] {location},Integer.class);
 	}
 	
+	public static List<DormitoryStatus> getAllDormitoriesStatus(){
+		String sql="select dormitory.`location`,sum(if(isnull(user.`id`),0,1)) as peoplecount\r\n"
+				+ "	from dormitory \r\n"
+				+ "	left join user \r\n"
+				+ "	on dormitory.`location`=user.`location`\r\n"
+				+ "	group by dormitory.`location`;";		
+		return jdbcTemplate.query(sql, new RowMapper<DormitoryStatus>() {
+			public DormitoryStatus mapRow(ResultSet rs,int arg1) throws SQLException {
+				DormitoryStatus d = new DormitoryStatus();
+				d.setLocation(rs.getString("location"));
+				d.setPeopleCounts(rs.getInt("peoplecount"));
+
+				return d;
+			}
+		});
+		
+	}
 	
+	public static int getPeopleCountByApplyId(String aid) {
+		String sql="SELECT COUNT(*) FROM USER AS u,apply AS a WHERE a.toLoc=u.`location` AND a.`aid`=?";
+		
+		return jdbcTemplate.queryForObject(sql,new Object[] {aid},Integer.class);
+	}
 	
 }

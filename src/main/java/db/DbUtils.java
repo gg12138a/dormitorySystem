@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
@@ -73,6 +74,9 @@ public class DbUtils {
 		close(null,stmt,conn);
 	}
 	
+	public static DataSourceTransactionManager getTransactionManager() {
+		return new DataSourceTransactionManager(ds);
+	}
 	
 	public static void main(String[] args) {
 		

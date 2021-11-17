@@ -143,4 +143,9 @@ public class UserDaoImpl {
 	public static String getLocById(String id) {
 		return jdbcTemplate.queryForObject("select location from user where id=?",new Object[] {id},String.class);
 	}
+	
+	public static int updateUserLocByAid(String aid) {
+		String sql="UPDATE USER SET location=(SELECT toLoc FROM apply WHERE aid=?) WHERE id=(SELECT uid FROM apply WHERE aid=?)";
+		return jdbcTemplate.update(sql,new Object[] {aid,aid});
+	}
 }

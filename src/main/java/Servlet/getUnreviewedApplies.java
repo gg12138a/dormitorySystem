@@ -11,20 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 
-import db.impl.DormitoryDaoImpl;
-import domain.DormitoryStatus;
+import db.impl.ApplyDaoImpl;
+import domain.Apply;
 
 /**
- * Servlet implementation class ListFreeDormitories
+ * Servlet implementation class getUnreviewedApplies
  */
-@WebServlet("/listFreeDormitories")
-public class ListFreeDormitories extends HttpServlet {
+@WebServlet("/getUnreviewedApplies")
+public class getUnreviewedApplies extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListFreeDormitories() {
+    public getUnreviewedApplies() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,12 +33,10 @@ public class ListFreeDormitories extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		List<DormitoryStatus> allDormitoriesStatus = DormitoryDaoImpl.getAllDormitoriesStatus();
+		List<Apply> unreviewedApplies = ApplyDaoImpl.getAllUnreviewedApplies();
 		
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().append(JSON.toJSONString(allDormitoriesStatus));
-	
+		response.getWriter().append(JSON.toJSONString(unreviewedApplies));
 	}
 
 	/**
